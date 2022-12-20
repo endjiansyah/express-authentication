@@ -5,20 +5,20 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "http://localhost:8080"
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); //panggil variabel corsOptions
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // bodyParser untuk parse data dari form pada express
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
+    res.json({ message: "Welcome to application apa ini." });
 });
 
 // set port, listen for requests
@@ -34,9 +34,9 @@ app.listen(PORT, () => {
 const db = require("./app/models");
 const Role = db.role;
 
-db.sequelize.sync({ force: true }).then(() => {
-    console.log('Drop and Resync Db');
-    initial();
+db.sequelize.sync({ force: true }).then(() => { // setara php artisan migrate:fresh
+    console.log('Drop and Resync Db'); // drop jika sudah ada tapi beda
+    initial(); // setara seeder / menjalankan seeder
 });
 
 function initial() { //seperti seeder di laravel
@@ -57,3 +57,4 @@ function initial() { //seperti seeder di laravel
 }
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
+require('./app/routes/customer.routes')(app);
