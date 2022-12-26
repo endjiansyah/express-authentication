@@ -1,14 +1,15 @@
 const { response } = require('express')
 const db = require('../app/models')
-const Customer = db.customer
+const Product = db.product
 
 function create(request, response) {
-    Customer.create({
+    Product.create({
         nama: request.body.nama,
-        username: request.body.username,
-        email: request.body.email,
-        password: request.body.password,
-        alamat: request.body.alamat
+        harga: request.body.harga,
+        deskripsi: request.body.deskripsi,
+        uom: request.body.uom,
+        stok: request.body.stok,
+        brand: request.body.brand
     }).then(result => {
         response.status(200).json(result)
     }).catch(err => {
@@ -17,7 +18,7 @@ function create(request, response) {
 }
 
 function read(request, response) {
-    Customer.findAll()
+    Product.findAll()
         .then(
             result => response.
                 status(200).
@@ -30,9 +31,8 @@ function read(request, response) {
         )
 }
 
-
 function readone(request, response) {
-    Customer.findOne({
+    Product.findOne({
         where: {
             id: request.params.id
         }
@@ -50,12 +50,13 @@ function readone(request, response) {
 }
 
 function update(request, response) {
-    Customer.update({
+    Product.update({
         nama: request.body.nama,
-        username: request.body.username,
-        email: request.body.email,
-        password: request.body.password,
-        alamat: request.body.alamat,
+        harga: request.body.harga,
+        deskripsi: request.body.deskripsi,
+        uom: request.body.uom,
+        stok: request.body.stok,
+        brand: request.body.brand
     }, {
         where: {
             id: request.params.id
@@ -64,7 +65,7 @@ function update(request, response) {
 }
 
 function destroy(request, response) {
-    Customer.destroy({
+    Product.destroy({
         where: {
             id: request.params.id
         }

@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:8080"
+    origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions)); //panggil variabel corsOptions
@@ -34,8 +34,8 @@ app.listen(PORT, () => {
 const db = require("./app/models");
 const Role = db.role;
 
-db.sequelize.sync({ force: true }).then(() => { // setara php artisan migrate:fresh
-    console.log('Drop and Resync Db'); // drop jika sudah ada tapi beda
+db.sequelize.sync({ force: true }).then(() => { // setara php artisan migrate:fresh (force:true)
+    console.log('Drop and Resync Db');
     initial(); // setara seeder / menjalankan seeder
 });
 
@@ -58,3 +58,5 @@ function initial() { //seperti seeder di laravel
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/customer.routes')(app);
+require('./app/routes/product.routes')(app);
+require('./app/routes/order.routes')(app);
